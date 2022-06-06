@@ -1,0 +1,200 @@
+<body>
+  <header class="d-flex justify-content-center align-items-center py-5">
+    <h1 class="h1 text-white">Stacey Huang's Todo List</h1>
+  </header>
+  <form class="d-flex justify-content-center align-items-center js-form">
+    <input type="text" class="border-0 py-2 ps-2 pe-5 me-2 h6" />
+    <input
+      type="number"
+      min="1"
+      max="12"
+      placeholder="M"
+      required
+      class="border-0 py-2 px-3 me-2 h6"
+    />
+    <input
+      type="number"
+      min="1"
+      max="31"
+      placeholder="D"
+      required
+      class="border-0 py-2 px-3 me-2 h6"
+    />
+    <button
+      type="submit"
+      class="border-0 py-2 px-4 me-2 bg-primary text-white h6 pointer js-btn"
+    >
+      Add into List
+    </button>
+  </form>
+  <div class="d-flex justify-content-center my-3">
+    <button
+      type="button"
+      class="border-0 js-sort-btn py-2 px-4 bg-accent text-white h6"
+    >
+      Sort by time
+    </button>
+  </div>
+  <section class="d-flex align-items-center flex-column">
+    <ul class="js-todo-list w-50"></ul>
+  </section>
+  <script src="./js/all.js">
+            const btn = document.querySelector('.js-btn');
+    const list = document.querySelector('.js-todo-list');
+    const myList = JSON.parse(localStorage.getItem('list')) || [];
+
+    function doneToggleListItem(e) {
+      // 確定點擊到done按鈕，才進行done樣式的變化
+      if (e.target.classList.contains('js-doneBtn')) {
+        const LI = e.target.parentElement; // 取得li元素,不要用document.querySelector取得元素來做樣式變換
+        LI.classList.toggle('done');
+        if (LI.classList.contains('done')) {
+          LI.dataset.status = 'done';
+        }
+      }
+    }
+    function deleteListItem(e) {
+      // 確定點擊到delete按鈕，才刪除list-item
+      if (e.target.classList.contains('js-deleteBtn')) {
+        const LI = e.target.parentElement;// 取得li元素
+        LI.classList.add('animation-scaleDown'); // 加上動畫效果
+        LI.addEventListener('animationend', () => { // 等到動畫結束後，才刪除li元素
+          // remove from localStorage
+          const { num } = LI.dataset; // 取出特定標記，此值與索引值相同
+          myList.splice(num, 1);
+          localStorage.setItem('list', JSON.stringify(myList));
+          LI.remove(); // 不要跟classList.remove()搞混
+        });
+      }
+    }
+    loadData();
+
+    list.addEventListener('click', deleteListItem);
+    list.addEventListener('click', doneToggleListItem);
+
+    btn.addEventListener('click', (e) => {
+      // prevent form from being submitted
+      e.preventDefault();
+
+      // get the input values
+      const form = e.target.parentElement;
+      const todoText = form.children[0].value;
+      const todoMonth = form.children[1].value;
+      const todoDate = form.children[2].value;
+
+      // 未輸入待辦計畫及待辦時間的提醒
+      if (todoText === '' || todoMonth === '' || todoDate === '') {
+        alert('請輸入您的待辦計畫及待辦時間');
+        return;
+      }
+
+      // create a todo
+      const listItem = document.createElement('li');
+      const listText = document.createElement('p');
+      const listTime = document.createElement('p');
+      listItem.dataset.num = myList.length; // 加入特定標記
+      listItem.classList.add('d-flex', 'align-items-center', 'my-2', 'justify-content-center', 'transition');
+      listText.innerText = todoText;
+      listText.classList.add('bg-white', 'text-dark', 'py-2', 'ps-2', 'w-50', 'text-start');
+      listTime.innerText = `${todoMonth} / ${todoDate}`;
+      listTime.classList.add('bg-white', 'text-dark', 'py-2', 'w-10', 'text-center');
+      listItem.appendChild(listText);
+      listItem.appendChild(listTime);
+
+      // create a done icon and a delete icon
+      const doneBtn = document.createElement('button');
+      doneBtn.innerHTML = '<span class="material-icons-outlined">done</span>';
+      doneBtn.classList.add('bg-success', 'border-0', 'text-white', 'pointer', 'js-doneBtn');
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.innerHTML = '<span class="material-icons-outlined">delete</span>';
+      deleteBtn.classList.add('bg-danger', 'border-0', 'text-white', 'pointer', 'js-deleteBtn');
+      listItem.appendChild(doneBtn);
+      listItem.appendChild(deleteBtn);
+
+      // add animation effect
+      listItem.classList.add('animation-scaleUp');
+
+      // complete the listItem
+      list.appendChild(listItem);
+
+      // create an object
+      const myTodo = {
+        todoText,
+        todoMonth,
+        todoDate
+      };
+
+      // store data into an array of objects
+
+      if (myList === []) {
+        localStorage.setItem('list', JSON.stringify([myTodo]));
+      } else {
+        myList.push(myTodo);
+        localStorage.setItem('list', JSON.stringify(myList));
+      }
+
+      // clear the input
+      form.children[0].value = '';
+      form.children[1].value = '';
+      form.children[2].value = '';
+    });
+
+    // 將localStorage的資料取出，並呈現出來
+    function loadData() {
+      if (myList !== []) {
+        // crate a todo
+        myList.forEach((item, index) => {
+          const listItem = document.createElement('li');
+          listItem.dataset.num = index;// 加入特定標記
+          const listText = document.createElement('p');
+          const listTime = document.createElement('p');
+          listItem.classList.add('d-flex', 'align-items-center', 'my-2', 'justify-content-center', 'transition');
+          listText.innerText = item.todoText;
+          listText.classList.add('bg-white', 'text-dark', 'py-2', 'ps-2', 'w-50', 'text-start');
+          listTime.innerText = `${item.todoMonth} / ${item.todoDate}`;
+          listTime.classList.add('bg-white', 'text-dark', 'py-2', 'w-10', 'text-center');
+          listItem.appendChild(listText);
+          listItem.appendChild(listTime);
+
+          // create a done icon and a delete icon
+          const doneBtn = document.createElement('button');
+          doneBtn.innerHTML = '<span class="material-icons-outlined">done</span>';
+          doneBtn.classList.add('bg-success', 'border-0', 'text-white', 'pointer', 'js-doneBtn');
+
+          const deleteBtn = document.createElement('button');
+          deleteBtn.innerHTML = '<span class="material-icons-outlined">delete</span>';
+          deleteBtn.classList.add('bg-danger', 'border-0', 'text-white', 'pointer', 'js-deleteBtn');
+          listItem.appendChild(doneBtn);
+          listItem.appendChild(deleteBtn);
+          // add animation effect
+          listItem.classList.add('animation-scaleUp');
+          // complete the listItem
+          list.appendChild(listItem);
+        });
+      }
+    }
+
+    const sortBtn = document.querySelector('.js-sort-btn');
+    function sortData() {
+      myList.sort((a, b) => {
+        if (Number(a.todoMonth) > Number(b.todoMonth)) {
+          return 1;
+        } if (Number(a.todoMonth) < Number(b.todoMonth)) {
+          return -1;
+        } if (Number(a.todoMonth) === Number(b.todoMonth)) {
+          return Number(a.todoDate) - Number(b.todoDate);
+        }
+      });
+
+      localStorage.setItem('list', JSON.stringify(myList));
+      // remove data 從一個元素中移除所有子元素：
+      while (list.firstChild) {
+        list.removeChild(list.firstChild);
+      }
+      loadData();
+    }
+    sortBtn.addEventListener('click', sortData);
+    // sortData();
+  </script>
+</body>

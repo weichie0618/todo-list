@@ -1,0 +1,172 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  background: -webkit-gradient(linear, left top, right top, from(#64dc64), to(#6464dc));
+  background: linear-gradient(90deg, #64dc64, #6464dc);
+}
+
+header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 30vh;
+}
+
+header h1 {
+  font-size: 4rem;
+  color: white;
+  text-shadow: 1px 1px 3px black;
+}
+
+form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+form input,
+form button {
+  padding: 0.25rem 0.5rem;
+  margin: 0.1rem;
+  font-size: 1.75rem;
+  border: none;
+}
+
+form input[type="number"] {
+  width: 50px;
+  text-align: center;
+}
+
+form button {
+  background-color: #14963c;
+  color: white;
+  border-radius: 30px;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+section i {
+  pointer-events: none;
+}
+
+section div.done {
+  text-decoration: line-through;
+  text-decoration-thickness: 0.2rem;
+  opacity: 0.5;
+}
+
+section div.list {
+  min-width: 30vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  margin: 0.5rem 0;
+}
+
+section div.list p {
+  background-color: white;
+  font-size: 1.75rem;
+  padding: 0.25rem 0.5rem;
+}
+
+section div.list p.list-t {
+  min-width: 50%;
+}
+
+section div.list p.list-d {
+  min-width: 20%;
+}
+
+section button {
+  padding: 0.25rem 0.5rem;
+  color: white;
+  cursor: pointer;
+  font-size: 1.75rem;
+  border: none;
+  margin-left: 1rem;
+}
+
+section button.check {
+  background: #32f032;
+}
+
+section button.trash {
+  background: #f03232;
+}
+
+@-webkit-keyframes scale {
+  from {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes scale {
+  from {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@-webkit-keyframes small {
+  to {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+}
+
+@keyframes small {
+  to {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+}
+/*# sourceMappingURL=style.css.map */

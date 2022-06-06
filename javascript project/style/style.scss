@@ -1,0 +1,132 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+i {
+  pointer-events: none;
+}
+
+body {
+  background: linear-gradient(90deg, rgb(84, 130, 255), rgb(100, 255, 134));
+}
+
+header {
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h1 {
+    color: white;
+    font-size: 3rem;
+  }
+}
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  input,
+  button {
+    border: none;
+    padding: 0.25rem 0.5rem;
+    margin: 0.1rem;
+    font-size: 1.75rem;
+  }
+  input[type="number"] {
+    width: 50px;
+    text-align: center;
+  }
+  button {
+    cursor: pointer;
+    background-color: rgb(0, 146, 114);
+    color: white;
+  }
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  div.done {
+    opacity: 0.5;
+    text-decoration: line-through;
+    text-decoration-thickness: 0.2rem;
+  }
+  div.todo {
+    min-width: 30vw;
+    display: flex;
+
+    align-items: center;
+    margin: 0.2rem 0;
+    p {
+      background-color: white;
+      color: black;
+      padding: 0.25rem 0.5rem;
+      font-size: 1.75rem;
+    }
+    p.todo-text {
+      min-width: 50%;
+    }
+    p.todo-time {
+      min-width: 20%;
+      text-align: center;
+    }
+    button {
+      font-size: 1.75rem;
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+    }
+    button.check {
+      background-color: chartreuse;
+    }
+    button.trash {
+      background-color: red;
+    }
+  }
+}
+
+div.sort {
+  display: flex;
+  justify-content: center;
+  button {
+    padding: 0.25rem 0.5rem;
+    font-size: 1.75rem;
+    background: linear-gradient(
+      45deg,
+      rgba(0, 248, 0, 0.8),
+      rgba(4, 122, 6, 0.79),
+      rgb(24, 255, 89)
+    );
+    border-radius: 15px;
+    margin: 2rem 1rem;
+    cursor: pointer;
+    // border: none;
+    color: white;
+  }
+}
+@keyframes scale {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes smail {
+  to {
+    transform: scale(0);
+  }
+}
